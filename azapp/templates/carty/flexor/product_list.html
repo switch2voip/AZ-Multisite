@@ -1,0 +1,70 @@
+{% extends 'core/flexor/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load thumbnail %}
+{% block hero %}
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<hr>
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+
+      <h1 class="my-4">Blog Post
+        <small>Secondary Text</small>
+      </h1>
+
+      <!-- Blog Posts -->
+      {% for post in object_list %}
+      <div class="panel panel-default mb-4">
+        <img class="panel-img-top" src="{{ post.featured_image.image_file |thumbnail_url:'size_750x300' }}"
+          alt="panel image cap">
+        <div class="panel-body">
+          <h2 class="panel-title">{{ post.title }}</h2>
+          <p class="panel-text">{{ post.short_description }}</p>
+          <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="panel-footer text-muted">
+          Posted {{ post.published_on |naturaltime}}, by
+          <a href="#">{{ post.author }}</a>
+        </div>
+      </div>
+      {% empty %}
+      <h2>No match Post</h2>
+      {% endfor %}
+
+      <!-- Pagination -->
+      {% if is_paginated %}
+      <ul class="pagination justify-content-center mb-4">
+        {% with page_obj.has_previous as prev %}
+        <li class="page-item {% if not prev %}disabled {% endif %}">
+          <a class="page-link" {% if prev %}href="?page={{ page_obj.previous_page_number }}" {% endif %}>&larr;
+            Older</a>
+        </li>
+        {% endwith %}
+        {% with page_obj.has_next as next %}
+        <li class="page-item {% if not next %} disabled {% endif %}">
+          <a class="page-link" {% if next %} href="?page={{ page_obj.next_page_number }}" {% endif %}>Newer &rarr;</a>
+        </li>
+        {% endwith %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
+      {% include "blog/flexor/sidebar.html" %}
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock %}

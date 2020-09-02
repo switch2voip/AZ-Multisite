@@ -1,0 +1,37 @@
+{% extends 'core/youapps/base.html' %}
+{% load static %}
+
+  <!-- ======== @Region: #content ======== -->
+  <div id="content">
+	  {% block content %}
+	    <!-- Page Content -->
+		<hr>
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-8">
+					<!-- Post Content Column -->
+					<article class="post-23862 page type-page status-publish hentry">
+					<!-- Title -->
+						<h1 class="mt-4">{{ object.title }}</h1>
+						<hr>
+
+					<!-- Post Content -->
+						<div class="entry-content">
+							{{ object.content |safe}}
+						</div>
+
+					<hr>
+					</article>
+				</div>
+					<!-- Sidebar Widgets Column -->
+				<div class="col-md-4">
+					{% include "blog/youapps/sidebar.html" %}
+				</div>
+			</div>
+		  <!-- /.row -->
+		</div>
+		<!-- /.container -->
+	  {% endblock %}
+  </div>
+  {% block call-out %}{% endblock %}

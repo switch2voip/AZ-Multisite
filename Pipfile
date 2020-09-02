@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django-extensions = "*"
+ipython = "*"
+
+[packages]
+pillow = "*"
+django-ckeditor = "*"
+easy-thumbnails = "*"
+django = "==2.2"
+django-cabinet = {git = "https://github.com/agenteAND/django-cabinet"}
+django-nested-inline = "*"
+django-polymorphic = "*"
+djangorestframework = "*"
+django-azmultisite-apps-0-1 = {editable = true,git = "https://github.com/agenteAND/jsnduw7q88q9jduqweq0q.git"}
+
+[requires]
+python_version = "*"

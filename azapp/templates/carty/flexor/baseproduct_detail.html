@@ -1,0 +1,371 @@
+{% extends 'core/flexor/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block hero %}
+{% endblock %}
+{% block custom-css%}
+<style>
+	ul>li {
+		margin-right: 25px;
+		font-weight: lighter;
+		cursor: pointer
+	}
+
+	li.active {
+		border-bottom: 3px solid silver;
+	}
+
+	.item-photo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-right: 1px solid #f6f6f6;
+	}
+
+	.menu-items {
+		list-style-type: none;
+		font-size: 11px;
+		display: inline-flex;
+		margin-bottom: 0;
+		margin-top: 20px
+	}
+
+	.section {
+		width: 100%;
+		margin-left: -15px;
+		padding: 2px;
+		padding-left: 15px;
+		padding-right: 15px;
+		background: #f8f9f9
+	}
+
+	.title-price {
+		margin-top: 30px;
+		margin-bottom: 0;
+		color: black
+	}
+
+	.title-attr {
+		margin-top: 0;
+		margin-bottom: 0;
+		color: black;
+	}
+
+	.btn-minus {
+		cursor: pointer;
+		font-size: 7px;
+		display: flex;
+		align-items: center;
+		padding: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border: 1px solid gray;
+		border-radius: 2px;
+		border-right: 0;
+	}
+
+	.btn-plus {
+		cursor: pointer;
+		font-size: 7px;
+		display: flex;
+		align-items: center;
+		padding: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border: 1px solid gray;
+		border-radius: 2px;
+		border-left: 0;
+	}
+
+	div.section>div {
+		width: 100%;
+		display: inline-flex;
+	}
+
+	input[type="number"] {
+		margin: 0;
+		padding-left: 5px;
+		font-size: 10px;
+		padding-right: 5px;
+		max-width: 18%;
+		text-align: center;
+	}
+
+	/* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	input[type=number] {
+		-moz-appearance: textfield;
+	}
+</style>
+{% endblock %}
+<!-- ======== @Region: #content ======== -->
+<div id="content">
+	{% block content %}
+	<!-- Page Content -->
+	<hr>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-6 item-photo">
+							<img class="img-fluid" src="{{ product.featured_image.image_file.url }}"
+								alt="{{product.featured_image.image_alt_text}}" />
+						</div>
+						<div class="col-md-6" style="border:0px solid gray">
+							<!-- Datos del vendedor y titulo del producto -->
+							<div class="section">
+								<h3>{{ product.title }}</h3>
+								<!-- <h5 style="color:#337ab7">vendido por <a href="#">Samsung</a> · <small style="color:#337ab7">(5054
+								ventas)</small></h5> -->
+
+								<!-- Detalles especificos del producto -->
+								<!-- <div class="section">
+							<h6 class="title-attr" style="margin-top:15px;"><small>COLOR</small></h6>
+							<div>
+								<div class="attr" style="width:25px;background:#5a5a5a;"></div>
+								<div class="attr" style="width:25px;background:white;"></div>
+							</div>
+						</div> -->
+								<!-- <div class="section" style="padding-bottom:5px;">
+							<h6 class="title-attr"><small>CAPACIDAD</small></h6>
+							<div>
+								<div class="attr2">16 GB</div>
+								<div class="attr2">32 GB</div>
+							</div>
+						</div> -->
+								<p class='description'>{{ product.short_description }}</p>
+								<form action="{% url 'cart:add-cart' product.id %}" method="post">{% csrf_token %}
+									{% if product.type != 'open_price' %}
+									<!-- Precios -->
+									<div class="section" style="padding-top:20px;">
+										{% if variations %}
+										{% for variation in variations %}
+										<input type="hidden" name="variation_id" value="{{ variation.id }}"
+											id="variation_id">
+										<select class="form-control" style="width:100%;" name="value"
+											id="variation_select">
+											{% for item in variation.items.all %}
+											<option value="{{ item.id }}">{{ item.value }}</option>
+											{% endfor %}
+										</select>
+										{% endfor %}
+										{% endif %}
+										{% if countries %}
+										<p class="h4">Country:</p>
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="sr-only" for="country"></label>
+											<select class="form-control" name="contry" id="country" required>
+												<option selected disabled value="">Select country</option>
+												{% for country in countries %}
+												<option value="{{ country.id }}">{{ country.name }}</option>
+												{% endfor %}
+											</select>
+										</div>
+										<p class="h4">Number Type:</p>
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="sr-only" for="number_type"></label>
+											<select class="form-control" name="number_type" id="number_type" required>
+												<option selected disabled value="">Select a country first</option>
+											</select>
+										</div>
+										<p class="h4">Area Code:</p>
+										<div class="form-group" style="margin-bottom: 0;">
+											<label class="sr-only" for="area_code"></label>
+											<select class="form-control" name="area_code" id="area_code" required>
+												<option selected disabled value="">Select a number type first</option>
+											</select>
+										</div>
+										{% endif %}
+									</div>
+									<h6 class="title-price"><small>price</small></h6>
+									<h3 class="price" style="margin-top:0px;">US$<span
+											class="product_price">{{ product.price |intcomma }}</span></span></h3>
+									<input type="hidden" value="{{ product.price }}" id="price" />
+									<div class="section" style="padding-bottom:20px;">
+										<div class="loader" style="display: none;"><i class="fa fa-spinner fa-spin"
+												style="font-size:50px; color:red"></i></div>
+										<h6 class="title-attr"><small>Quantity</small></h6>
+										<div>
+											<div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
+											<input type="number" value="1" />
+											<div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
+										</div>
+									</div>
+									{% else %}
+									<label for="#open_price_product">Offer your price</label>
+									<input type="number" min="500" value="500" name="open_price"
+										id="open_price_product">
+									{% endif %}
+									<!-- Botones de compra -->
+									<div class="section" style="padding-bottom:20px;">
+										<button class="btn btn-primary btn-block"><span style="margin-right:20px"
+												class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>Add
+											to Cart</button>
+										<!-- <h6><a href="#"><span class="glyphicon glyphicon-heart-empty" style="cursor:pointer;"></span>
+											Agregar a lista de deseos</a></h6> -->
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<ul class="menu-items">
+								<li class="active">Product Description</li>
+								<!-- <li>Garantía</li>
+							<li>Vendedor</li>
+							<li>Envío</li> -->
+							</ul>
+							<div style="padding:15px; border-top:1px solid silver">
+								{{ product.description |safe}}
+							</div>
+						</div>
+					</div>
+				</div><!-- /.row -->
+			</div> <!-- / .col-md-8-->
+			<div class="col-md-4">
+				{% include "blog/flexor/sidebar.html" %}
+			</div>
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container -->
+	{% endblock %}
+</div>
+{% block call-out %}{% endblock %}
+
+{% block custom-js %}
+<script>
+	$(document).ready(function () {
+		//-- Click on detail
+		$("ul.menu-items > li").on("click", function () {
+			$("ul.menu-items > li").removeClass("active");
+			$(this).addClass("active");
+		})
+
+		$(".attr,.attr2").on("click", function () {
+			var clase = $(this).attr("class");
+
+			$("." + clase).removeClass("active");
+			$(this).addClass("active");
+		})
+
+		//-- Click on QUANTITY
+		$(".btn-minus").on("click", function () {
+			var now = $(".section > div > input").val();
+			if ($.isNumeric(now)) {
+				if (parseInt(now) - 1 > 0) { now--; }
+				$(".section > div > input").val(now);
+			} else {
+				$(".section > div > input").val("1");
+			}
+		})
+		$(".btn-plus").on("click", function () {
+			var now = $(".section > div > input").val();
+			if ($.isNumeric(now)) {
+				$(".section > div > input").val(parseInt(now) + 1);
+			} else {
+				$(".section > div > input").val("1");
+			}
+		})
+		let variationEndpoint = ""
+		let item = ""
+		// get variation price
+		$('#variation_select').change(function () {
+			item = $(this).val()
+			let variation = $('#variation_id').val()
+			variationEndpoint = "{% url 'carty:item-variation-data' slug=product.slug pk=0 %}".replace(/0/g, item)
+			$.ajax({
+				url: variationEndpoint,
+				// data: {
+				// 	'variation': variation,
+				// 	'value': item
+				// },
+				type: 'GET',
+				beforeSend: function () {
+					$('div.loader').show()
+				},
+				success: function (data) {
+					$('div.loader').hide()
+					console.log(data)
+					$('.item-photo img').attr('src', data.attachment_url)
+					$('.item-photo img').attr('alt', data.attachment_alt)
+					$('.description').text(data.description)
+					$('.price .product_price').text(data.price)
+					$('#price').val(data.price)
+
+				}
+			});
+		});
+		//contry select on product DID type
+		$('#country').change(function () {
+			console.log($(this).val())
+			country_id = $(this).val()
+			countryEndpoint = "{% url 'carty:country-data' pk=0 %}".replace(/0/g, country_id)
+
+			$.ajax({
+				url: countryEndpoint,
+				type: 'GET',
+				beforeSend: function () {
+					$('div.loader').show()
+				},
+				success: function (data) {
+					$('div.loader').hide()
+					console.log(data)
+					fistrIteration = true;
+					for (x in data.numbers_types)
+						console.log(data)
+					$('#number_type').html(`
+						${
+						fistrIteration ? `<option selected disabled value="">Select number type</option>` : ''
+
+						}
+						<option value="${data.numbers_types[x].id}">${data.numbers_types[x].name}</option>
+					`)
+					fistrIteration = false;
+				}
+			});
+		});
+
+
+		//number type select on product DID type
+		$('#number_type').change(function () {
+			console.log($(this).val())
+			number_type_id = $(this).val()
+			numberTypeEndpoint = "{% url 'carty:number-type-data' pk=0 %}".replace(/0/g, number_type_id)
+
+			$.ajax({
+				url: numberTypeEndpoint,
+				type: 'GET',
+				beforeSend: function () {
+					$('div.loader').show()
+				},
+				success: function (data) {
+					$('div.loader').hide()
+					console.log(data)
+					fistrIteration = true;
+					for (x in data.areas_codes)
+						console.log(data.areas_codes[x])
+					$('#area_code').html(`
+						${
+						fistrIteration ? `<option selected disabled value="">Select area code</option>` : ''
+
+						}
+						<option value="${data.areas_codes[x].id}">${data.areas_codes[x].name} (${data.areas_codes[x].code})</option>
+					`)
+					fistrIteration = false;
+				}
+			});
+		});
+
+	})
+
+</script>
+{% endblock %}

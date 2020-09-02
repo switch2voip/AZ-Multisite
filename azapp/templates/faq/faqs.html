@@ -1,0 +1,51 @@
+{% if request.site.name == 'AltoTelecom' %}
+{% for faq in faqs %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq-{{ faq.category.slug }}-{{ forloop.counter }}">{{ faq.title }}</a>
+        </h4>
+    </div>
+    <div id="faq-{{ faq.category.slug }}-{{ forloop.counter }}" class="panel-collapse collapse">
+        <div class="panel-body">
+            {% with faq.content as content %}
+                {% if content|length > 350 %}
+                    {{ content|safe |slice:":350" }}...
+                    <a href="{{ faq.get_absolute_url }}">Read more</a>
+                {% else %}
+                    {{ content }}
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% else %}
+
+{% for faq in faqs %}
+    <div class="card">
+        <div class="card-header p-2" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#faq-{{ faq.category.slug }}-{{ forloop.counter }}" aria-expanded="true" aria-controls="faq-{{ faq.category.slug }}-{{ forloop.counter }}">
+                    {{ faq.title }}
+                </button>
+                </h5>
+        </div>
+
+        <div id="faq-{{ faq.category.slug }}-{{ forloop.counter }}" class="collapse" aria-labelledby="headingOne" data-parent="#faqExample">
+            <div class="card-body">
+                {% with faq.content as content %}
+                    {% if content|length > 350 %}
+                        {{ content|safe |slice:":350" }}...
+                        <a href="{{ faq.get_absolute_url }}">Read more</a>
+                    {% else %}
+                        {{ content }}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+{% endif %}

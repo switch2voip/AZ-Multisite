@@ -1,0 +1,168 @@
+/*/////////////////////////////////////////////////////////////////////
+ // 
+ // Custom theme code styles
+ // 
+ // This is a skeleton starter template for overriding styles
+ // set by Bootstrap & the theme
+ // 
+ // ----------------------------------------------------
+ // 
+ // Remove unused code & commenting for better performances
+ // 
+ // ----------------------------------------------------
+ // 
+ // @see - Usefuls tools online for editing
+ // 1. http://charliepark.org/bootstrap_buttons/ - Button style generator
+ // 2. http://www.colorzilla.com/gradient-editor/ - CSS3 gradient maker
+ // 
+ // @note
+ // To ensure custom styles are picked up
+ // wrap definitions in body tag
+ // ie.
+ // body .navbar-inner {
+ //   background: #ff0000;
+ // }
+ // 
+ /////////////////////////////////////////////////////////////////////*/
+a {
+  color: #f74444;
+}
+a:hover {
+  color: #f74444;
+}
+.btn-more {
+  color: #f74444;
+}
+.btn-more:hover {
+  background: #f74444;
+}
+.btn-more i,
+.btn-more [class*=" icon-"] {
+  background: #f77144;
+}
+.btn-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-image: -webkit-linear-gradient(top, #f74444 0%, #f77144 100%);
+  background-image: -o-linear-gradient(top, #f74444 0%, #f77144 100%);
+  background-image: linear-gradient(to bottom, #f74444 0%, #f77144 100%);
+  background-color: #a047c3;
+  background-image: -moz-linear-gradient(top, #f74444, #f77144);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f74444), to(#f77144));
+  background-image: -webkit-linear-gradient(top, #f74444, #f77144);
+  background-image: -o-linear-gradient(top, #f74444, #f77144);
+  background-image: linear-gradient(to bottom, #f74444, #f77144);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffad4dd3', endColorstr='#ff8c3daa', GradientType=0);
+  border-color: #f77144 #f77144 #5e2972;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f77144;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled],
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary:active.focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover {
+  color: #ffffff;
+  background-color: #f77144;
+  border-color: #f77144;
+}
+a.btn-hh-trigger {
+  background: #f74444;
+}
+#background-wrapper {
+  border-bottom-color: #f74444;
+}
+.header-hidden {
+  background: #f74444;
+}
+/*.header .navbar-brand {
+   replace logo colour
+  background: url("https://altotelecom.com/wp-content/uploads/2018/02/logo.png") left top no-repeat;
+}*/
+.social-media a {
+  color: #f74444;
+}
+.social-media a i {
+  border-color: #f74444;
+}
+.social-media a:hover {
+  background: #f74444;
+  color: #ffffff;
+}
+.social-media a:hover i {
+  border-color: #ffffff;
+}
+.navbar-default .navbar-nav .caret {
+  color: #f74444;
+}
+.navbar-default .navbar-nav li > a:not(.btn):hover,
+.navbar-default .navbar-nav li.icon-link a:hover {
+  color: #f74444;
+}
+.navbar-default .navbar-nav li.open a:hover,
+.navbar-default .navbar-nav li.open a:focus,
+.navbar-default .navbar-nav li.open a.dropdown-toggle,
+.navbar-default .navbar-nav li.active a.top-level,
+.navbar-default .navbar-nav li.active a:hover {
+  background: #f74444;
+}
+.navbar-default .navbar-nav .dropdown-menu {
+  border-top-color: #f74444;
+}
+.navbar-default .navbar-nav .dropdown-menu li a:not(.btn):before {
+  color: #f74444;
+}
+.owl-carousel .owl-controls .owl-pagination .owl-page span {
+  border-color: #f74444;
+}
+.item-carousel.owl-carousel .owl-controls .owl-buttons div,
+.owl-carousel .owl-controls .owl-pagination .owl-page.active span {
+  background: #f74444;
+}
+.block .block-title:after,
+.block-contained .block-title:after,
+.block-highlight .block-title:after {
+  background: #f74444;
+}
+.block.block-bg-primary,
+.block.block-bg-primary:after {
+  background-color: #f74444;
+}
+.block.block-border-bottom,
+.block-highlight {
+  border-bottom-color: #f74444;
+}
+ul.list-dotted li:before,
+.panel-pricing .panel-pricing-popular {
+  color: #f74444;
+}
+.stat {
+  border-color: #f74444;
+}
+.date-wrapper .date-m {
+  background: #f74444;
+}
+ul.nav-stacked li a,
+.tabbable > ul.nav-tabs li a,
+ul.nav-tabs li a {
+  color: #f74444;
+}
+#footer a:not(.btn) {
+  color: #f74444;
+}
+.text-primary {
+  color: #f74444;
+}
+.bg-primary {
+  background: #f74444;
+}

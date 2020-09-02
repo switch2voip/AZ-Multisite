@@ -1,0 +1,56 @@
+{% extends 'core/flexor/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load thumbnail %}
+{% load faq_tags %}
+  {% block hero %}
+  {% endblock %}
+
+    {% block content %}
+      <!-- Page Content -->
+    <hr>
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-8">
+
+        <h1 class="my-4">Frequently Asked Question
+          <small>Secondary Text</small>
+        </h1>
+        <hr />
+
+		<!-- Blog Posts -->
+		{% for category in object_list %}
+        <div class="faqHeader">{{ category.name }}</div>
+        {% category_faqs_list category.name %}
+		{% empty %}
+			<h2>No match Category</h2>
+    {% endfor %}
+
+    {% comment %}
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+          <li class="page-item">
+            <a class="page-link" href="#">&larr; Older</a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="#">Newer &rarr;</a>
+          </li>
+        </ul>
+      {% endcomment%}
+
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+          	{% include "blog/flexor/sidebar.html" %}
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+  {% endblock %}
