@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SWITCH2VOIP{% endblock %}
+{% block content %}
+
+<div class="container mt-3">
+  <h1 class="text-center">Home Page</h1>
+  {% if user.is_authenticated %}
+    Hi {% if user.first_name %}{{ user.first_name }}{% else %} {{ user.username }}{% endif %}!
+    <p><a href="{% url 'users:user_profile' %}">go to profile</a></p>
+    <p><a href="{% url 'account_logout' %}">Log Out</a></p>
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'users:login_signup' %}">Login/Register</a>
+  {% endif %}
+</div>
+
+{% endblock %}

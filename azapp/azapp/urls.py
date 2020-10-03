@@ -13,22 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import  settings
-from django.conf.urls.static import  static
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-
+from . import views
 
 urlpatterns = [
     path('super-admin/', admin.site.urls),
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('paypal/', include('paypal.standard.ipn.urls')),
+
     path('', include('apps.core.urls')),
     path('blog/', include('apps.blog.urls')),
     path('faqs/', include('apps.faq.urls')),
     path('product/', include('apps.carty.urls')),
     path('cart/', include('apps.cart.urls')),
+    path('carts/',include('carts.urls')),
+    path('switch2voip/',include('switch2voip.urls')),
+
+
+
 
 ]
 

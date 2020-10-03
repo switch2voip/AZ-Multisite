@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Log In{% endblock %}
+
+
+
+{% block content %}
+
+{% if messages %}
+<ul class="list-unstyled mt-4">
+    {% for message in messages %}
+    <li class="alert alert-success messages">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3">
+  <h2 class="h2-responsive blue-text mb-3" style="font-size:25px;">Login</h2>
+  <div class="border rounded">
+  <form method="post" action="{% url 'account_login' %}" class="myform p-3">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-success btn-sm">Log in</button>
+    <p><a href="{% url 'account_reset_password' %}">Lost your password?</a></p>
+    <p>No account? <a href="{% url 'users:login_signup' %}">Register</a></p>
+  </form>
+</div>
+</div>
+
+
+{% endblock %}

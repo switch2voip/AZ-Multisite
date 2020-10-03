@@ -1,0 +1,84 @@
+{% load static %}
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/"><img src="{% static 'img/logo.png' %}" height="75px;" width="250px;" alt="SWitch2Voip"></a>
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% if active == 'home' %}active{% endif %}">
+          <a class="nav-link" href="/">Home
+            {% if active == "home" %}
+            <span class="sr-only">(current)</span>
+            {% endif %}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if active == 'rates' %}active{% endif %}" href="#">Rates</a>
+          {% if active == "rates" %}
+          <span class="sr-only">(current)</span>
+          {% endif %}
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown {% if active == 'services' %}active{% endif %}">
+          <a class="nav-link dropdown-toggle active" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Services</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'shop:product_list' %}">All Products</a>
+            <hr>
+            {% for c in categories %}
+            <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        <li class="nav-item dropdown {% if active == 'account' %}active{% endif %}">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">My Account</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            {% if user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'users:user_profile' %}">Profile</a>
+              {% if user.is_staff %}
+                <a class="dropdown-item" href="/admin/">Manage site</a>
+                <a class="dropdown-item" href="#">Dashboard</a>
+              {% endif %}
+            {% else %}
+            <a class="dropdown-item" href="{% url 'users:login_signup' %}">Login/Register</a>
+            {% endif %}
+          </div>
+        </li>
+        <li class="nav-item dropdown {% if active == 'support' %}active{% endif %}">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Contact Support</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">test</a>
+            <a class="dropdown-item" href="#">test 2</a>
+            <a class="dropdown-item" href="#">test 3</a>
+          </div>
+        </li>
+        <li class="nav-item {% if active == 'cart' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'carts:cart' %}">
+            <span class="pl-2"><span class="badge green z-depth-1">{% if request.session.cart_items %}{{ request.session.cart_items }}{% else %}0 {% endif %}</span></span>
+            {{ request.session.cart_total }}
+            <i class="fas fa-shopping-cart mr-2 pl-1" aria-hidden="true"></i>
+            {% if active == "cart" %}
+            <span class="sr-only">(current)</span>
+            {% endif %}
+          </a>
+        </li>
+      </ul>
+      <!-- Links -->
+      <form action="{% url 'search:query' %}" method="get" class="form-inline my-2 my-lg-0">
+        <div class="md-form my-0">
+            <input name="q" class="form-control mr-sm-2" type="text" placeholder="🔍 Search" value="{{ query }}" aria-label="Search">
+        </div>
+      </form>
+    </div>
+    <!-- Collapsible content -->
+  </nav>
+  <!--/.Navbar-->

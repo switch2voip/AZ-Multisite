@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ settings.BRAND_NAME }}
+{% endblock %}
+{% block content %}
+<!--Start-->
+{% with cart_items=cart.products.all %}
+<div class="cart mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table borderless text-center table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for product in cart.products.all %}
+                        <tr>
+                            <td data-th="Product">
+                              <h4 class="h4-responsive"><a style="color:blue !important;" href="{{ product.item.get_absolute_url }}">{{ product.item.name }}{% if product.variant %} - {{ product.variant.name }}{% endif %}</a></h4>
+                            </td>
+                            {% if product.variant %}
+                              <td class="price">{{ settings.CURRENCY }}{{ product.variant.price|floatformat:"2" }}</td>
+                            {% else %}
+                              <td class="price">{{ settings.CURRENCY }}{{ product.item.price|floatformat:"2" }}</td>
+                            {% endif %}
+                            <td>
+                              <form action="{% url 'carts:update' %}" method="post">
+                                      {% csrf_token %}
+                                      <input type='hidden' name='product_id' value='{{ product.id }}'/>
+                                      <span class="cart-quantity up"> + </span>
+                                      <input class="value" type="number" name="update_quantity" min="1" value="{{ product.quantity }}">
+                                      <span class="cart-quantity down">-</span>
+                                      <button type="submit" class="btn btn-info btn-sm"><i class="fas fa-sync-alt"></i></button>
+                              </form>
+                            </td>
+                            <td>
+                                <h4 class="h4-responsive text-default">{{ settings.CURRENCY }} {{ product.get_item_total|floatformat:"2" }}</h4>
+                            </td>
+                            <td>
+                                <span class="cart-delete">
+                                    {% include 'carts/cart_update.html' with product=product cart=cart in_cart=True %}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                          <td colspan="6">
+                              <h4 class="h4-responsive">Total: <span class="green-text">{{ settings.CURRENCY }} {{ cart.get_total|floatformat:"2" }}</span></h4>
+                          </td>
+                      </tr>
+
+                    </tfoot>
+
+
+                </table>
+
+
+            </div>
+            <div class="container">
+
+                    <a class="btn btn-success" href="/switch2voip/shop/">
+                        Continue Shopping
+                    </a>
+                </div>
+            <div class="col-xs-3 col-md-3">
+
+                <a class=" btn btn-outline-success" href="{% url 'carts:checkout' %}">
+                        CheckOut
+                    </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endwith %}
+<!--End-->
+{% endblock %}

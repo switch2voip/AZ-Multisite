@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    {% if user.is_authenticated %}
+    <div class="col-12 py-5">
+        <p class="text-center alert alert-warning"><i class="fas fa-exclamation-circle"></i> you are already logged in</p>
+        <a href="{% url 'shop:home' %}" class="btn btn-default">Continue Shopping</a>
+    </div>
+    {% else %}
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3">
+      <h2 class="h2-responsive blue-text mb-3" style="font-size:25px;">Login</h2>
+      <div class="border rounded">
+      <form method="post" action="{% url 'account_login' %}" class="myform p-3">
+        {% csrf_token %}
+        {{ form1 }}
+        <button type="submit" class="btn btn-success btn-sm">Log in</button>
+        <p><a href="{% url 'account_reset_password' %}">Lost your password?</a></p>
+      </form>
+    </div>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 ">
+    <h1 class="h2-responsive blue-text mb-3" style="font-size:25px;">Register</h1>
+    <div class="border rounded">
+    <form method="post" class="myform p-3" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {{ form2 }}
+      <p style="font-size:13px;">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="/privacy-policy/" target="_blank">Privacy Policy</a>.</p>
+      <button type="submit" class="btn btn-success btn-sm">Register</button>
+    </form>
+    </div>
+  </div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% comment %}
+<h2>Log In</h2>
+<form method="post" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form1 }}
+  <button type="submit">Log In</button>
+</form>
+
+
+<h2>Sign Up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form2 }}
+  <button type="submit">Sign Up</button>
+</form>
+{% endcomment %}
+
+
+
+{% endblock %}

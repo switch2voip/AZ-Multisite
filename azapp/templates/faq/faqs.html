@@ -6,7 +6,8 @@
             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#faq-{{ faq.category.slug }}-{{ forloop.counter }}">{{ faq.title }}</a>
         </h4>
     </div>
-    <div id="faq-{{ faq.category.slug }}-{{ forloop.counter }}" class="panel-collapse collapse">
+    <div id="faq-{{ faq.category.slug }}-{{ forloop.counter }}"
+ class="panel-collapse collapse">
         <div class="panel-body">
             {% with faq.content as content %}
                 {% if content|length > 350 %}

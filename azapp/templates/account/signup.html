@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+
+
+<div class="col-12 col-sm-12 col-md-6 col-lg-6 mt-3 ">
+  <h1 class="h2-responsive blue-text mb-3" style="font-size:25px;">Register</h1>
+  <div class="border rounded">
+  <form method="post" class="myform p-3" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {{ form }}
+    <p style="font-size:13px;">Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="/privacy-policy/" target="_blank">Privacy Policy</a>.</p>
+    <button type="submit" class="btn btn-success btn-sm">Register</button>
+    <p>Have account? <a href="{% url 'users:login_signup' %}">Log in</a></p>
+  </form>
+  </div>
+</div>
+{% endblock %}

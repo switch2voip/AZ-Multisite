@@ -29,3 +29,16 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
+
+# stripe settings
+
+if DEBUG:
+   # test key
+    STRIPE_PUBLISHABLE_KEY = ''
+    STRIPE_STRIPE_KEY = ''
+
+else:
+# live key
+    STRIPE_PUBLISHABLE_KEY = 'YOUR STRIPE LIVE PUB KEY'
+    STRIPE_STRIPE_KEY = 'YOUR STRIPE LIVE SECRET KEY'
+

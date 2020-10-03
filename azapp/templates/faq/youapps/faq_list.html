@@ -2,7 +2,8 @@
 {% load static %}
 {% load humanize %}
 {% load thumbnail %}
-{% load faq_tags %}
+{% load tz%}
+
 
     {% block content %}
       <!-- Page Content -->
@@ -24,7 +25,7 @@
 		{% for category in object_list %}
         <div class="m-3">{{ category.name }}</div>
         <div class="accordion" id="faqExample">
-          {% category_faqs_list category.name %}
+
         </div>
 		{% empty %}
 			<h2>No match Category</h2>

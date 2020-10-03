@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  {% if product %}{{ product.name }} {% else %} Products {% endif %}
+{% endblock %}
+{% block content %}
+<!--Start-->
+<div class="product-details mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+              <div id="carouselFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="0" data-ride="carousel" data-aos="zoom-in" data-aos-duration="2000">
+                <div class="carousel-inner">
+                  {% if product.pictures.all|length >= 1%}
+                  {% for pic in product.pictures.all %}
+                  {% with product.pictures.all|first as first_pic %}
+                  <div class="carousel-item {% if first_pic.picture == pic.picture %}active{% endif %}">
+                    <img src="{% if pic.picture %}{{ pic.picture.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}" class="w-100 myimg img-fluid d-block" alt="{{ product.name }}">
+                  </div>
+                  {% endwith %}
+                  {% endfor %}
+                  {% else %}
+                  <div class="carousel-item active">
+                    <img src="{% static 'img/default.jpg' %}" class="w-75" alt="{{ product.name }}">
+                  </div>
+                  {% endif %}
+                </div>
+                {% if product.pictures.all|length >= 1 %}
+                <a class="carousel-control-prev" href="#carouselFade" role="button" data-slide="prev">
+                  <i class="fas fa-angle-double-left" style="color:black;"></i>
+                </a>
+                <a class="carousel-control-next" href="#carouselFade" role="button" data-slide="next">
+                  <i class="fas fa-angle-double-right" style="color:black;"></i>
+                </a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-12 p-5 col-lg-6">
+                <h1 class="h1-responsive">{{ product.name }}</h1>
+                <span>
+                    <span class="prices">
+                      {% if product.variants.all|length >= 1 %}
+                      <span style="font-size:15px;">starts from</span><br>
+                      {% endif %}
+                      {{ settings.CURRENCY }} {{ product.price }}</span> <br>
+                    {% include 'carts/cart_update.html' with product=product cart=cart %}
+                </span>
+                <hr>
+                <p><b>Category :</b>  {{ product.category }}</p>
+                {% if product.tags.all|length >= 1 %}
+                  <p><b>Keywords :</b>
+                  {% for tag in product.tags.all %}
+                    {% if not forloop.last %}
+                      {{ tag.tag }} -
+                    {% else %}
+                      {{ tag.tag }}
+                    {% endif %}
+                  {% endfor %}
+                  </p>
+                {% endif %}
+                <p><b>Description : </b> {{ product.description|safe|linebreaksbr }} </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End-->
+{% endblock %}

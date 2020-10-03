@@ -1,0 +1,33 @@
+<form class='d-flex justify-content-left'  method='POST' action='{% if in_cart %}{% url "carts:remove" %}{% else %}{% url "carts:add" %}{% endif %}' data-endpoint='{% if in_cart %}{% url "carts:remove" %}{% else %}{% url "carts:add" %}{% endif %}'>
+    {% csrf_token %}
+    <input type='hidden' name='product_id' value='{{ product.id }}' />
+      <span class='submit-span'>
+  {% if in_cart %}
+     <button type='submit' class=''><i class="fas fa-times"></i></button>
+    {% else %}
+      {% if cart_item %}
+      {% url 'carts:cart' as cart_home %}
+          In cart <a href="{{ cart_home }}" class='btn btn-success'>View your cart</a>
+      {% else %}
+    <span>
+      <label for="">Quantity:</label>
+      <input type="number" id="quantity_field" name="quantity_field" min="1" max="10" value="1">
+    </span>
+    {% if product.variants.all|length >= 1 %}
+        <div class="form-group">
+            <label class="d-inline-block" for="variant_field"><small><strong>Choose option:</strong></small></label>
+            <select class="browser-default custom-select custom-select-sm mb-3" name="variant_field" required=required>
+              <option value="" selected>Select an option</option>
+              {% for item in product.variants.all %}
+                <option value="{{ item.name }}">
+                  {{ item.name }} {{ item.price }}$
+                </option>
+              {% endfor %}
+             </select>
+        </div>
+      {% endif %}
+          <button class="btn btn-success btn-sm" type="submit">Add to cart <i class="fas fa-shopping-cart ml-1"></i></button>
+    {% endif %}
+  {% endif %}
+    </span>
+</form>

@@ -27,6 +27,12 @@ SECRET_KEY = 'z5+f78l*pe^%tb!+e-62#h=wjc0n#f1h#s4!4y%smua2pz!zxx'
 # Application definition
 
 DJANGO_APPS = [
+    'switch2voip.apps.Switch2VoipConfig',
+    'carts.apps.CartsConfig',
+    'checkout.apps.CheckoutConfig',
+    # 'users.apps.UsersConfig',
+
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -35,6 +41,17 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.humanize',
+
+
+    'allauth',
+    'allauth.account',
+
+
+
+
+    'paypal.standard.ipn',
+
+
 ]
 
 THIRD_PARTY_APPS = [
@@ -48,6 +65,9 @@ THIRD_PARTY_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'nested_inline',
+    # 'stripe',
+
+
 ]
 
 PROJECT_APPS = [
@@ -57,6 +77,7 @@ PROJECT_APPS = [
     'apps.carty',
     'apps.cart',
     'apps.accounts.apps.UserConfig',
+    'payment'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
@@ -73,6 +94,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'azapp.urls'
+# AUTH_USER_MODEL = 'users.CustomUser'
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 TEMPLATES = [
     {
@@ -152,3 +177,12 @@ THUMBNAIL_ALIASES = {
 
 #cart settings
 CART_SESSION_ID = 'cart'
+
+
+# django-paypal settings
+
+PAYPAL_RECEIVER_EMAIL = 'shaibimaibi501@gmail.com'
+PAYPAL_TEST = True
+
+STRIPE_PUBLIC_KEY = 'pk_test_Ug99k9cewdSmXnqJnRKWAbDf00JxqPDq5P'
+STRIPE_PRIVATE_KEY = 'sk_test_rr3wMBxFaD0eJCtWvg9xQiow00mNqdldtL'

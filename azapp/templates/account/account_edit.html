@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Update Account
+{% endblock %}
+{% block content %}
+<div class="container mt-3">
+  {% if messages %}
+  <ul class="messages list-unstyled mt-4">
+      {% for message in messages %}
+      <li class="alert {{ message.tags }} messages">{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="row">
+      <div class="col-sm-12 col-md-3 col-lg-2 mt-3">
+        <div class="card card1">
+              <p class="card-title text-white">My Account</p>
+              <ul class="list-unstyled form-check">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Order</a></li>
+                <li><a href="{% url 'users:account_update' %}">Eidt Profile</a></li>
+                <li><a href="#">Change CallerID</a></li>
+                <li><a href="#">Authorize IP</a></li>
+                <li><a href="{% url 'account_logout' %}">Logout</a></li>
+              </ul>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 mt-3">
+        <div class="card card1">
+            <p class="card-title text-white">Your Balance</p>
+            <div class="card-body">
+              <p class="font-weight-bold">US$0.00</p>
+              <form>
+              <input class="amount" type="number" name="amount_field" min="10" placeholder="$">
+              <input class="btn btn-primary btn-sm" type="submit" name="submit" value="Recharge">
+            </form>
+            </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4 mt-3">
+        <div class="card card1">
+              <p class="card-title text-white">VICIdial/GOautodial/PBX Settings</p>
+              <ul class="list-unstyled form-check">
+                <li><span class="font-weight-bold">Username:</span> <a href="#">Click to Add Funds</a></li>
+                <li><span class="font-weight-bold">SIP Password:</span> ****</li>
+                <li><span class="font-weight-bold">SIP Domain:</span> 5.9.126.75</li>
+                <li><a href="#">Instructions settings</a></li>
+              </ul>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-3 mt-3">
+        <div class="card card1">
+              <p class="card-title text-white">Xlite/Zoiper Settings</p>
+              <ul class="list-unstyled form-check">
+                <li><span class="font-weight-bold">Username:</span> <a href="#">Click to Add Funds</a></li>
+                <li><span class="font-weight-bold">SIP Password:</span> **********</li>
+                <li><span class="font-weight-bold">SIP Domain:</span> 5.9.126.75</li>
+                <li><a href="#">Instructions settings</a></li>
+              </ul>
+        </div>
+      </div>
+  </div>
+</div>
+<div class="container mt-4">
+    <h3 class="h3-responsive">Edit Profile</h3>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+          <form  method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}<br>
+            <p>Password:<br> <a class="form-control blue-text" href="{% url 'account_change_password' %}">Click to Change Password</a></p>
+            <button class="btn btn-primary" type="submit">Save</button>
+          </form>
+        </div>
+    </div>
+</div>
+{% endblock%}
