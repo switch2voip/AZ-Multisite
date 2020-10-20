@@ -27,9 +27,9 @@
                               <h4 class="h4-responsive"><a style="color:blue !important;" href="{{ product.item.get_absolute_url }}">{{ product.item.name }}{% if product.variant %} - {{ product.variant.name }}{% endif %}</a></h4>
                             </td>
                             {% if product.variant %}
-                              <td class="price">{{ settings.CURRENCY }}{{ product.variant.price|floatformat:"2" }}</td>
+                              <td class="price">{{ settings.CURRENCY }}{{ product.variant.price }}</td>
                             {% else %}
-                              <td class="price">{{ settings.CURRENCY }}{{ product.item.price|floatformat:"2" }}</td>
+                              <td class="price">{{ settings.CURRENCY }}{{ product.item.price}}</td>
                             {% endif %}
                             <td>
                               <form action="{% url 'carts:update' %}" method="post">
@@ -42,7 +42,7 @@
                               </form>
                             </td>
                             <td>
-                                <h4 class="h4-responsive text-default">{{ settings.CURRENCY }} {{ product.get_item_total|floatformat:"2" }}</h4>
+                                <h4 class="h4-responsive text-default">{{ settings.CURRENCY }} {{ product.get_item_total }}</h4>
                             </td>
                             <td>
                                 <span class="cart-delete">
@@ -52,10 +52,12 @@
                         </tr>
                         {% endfor %}
                     </tbody>
+
+
                     <tfoot>
                       <tr>
                           <td colspan="6">
-                              <h4 class="h4-responsive">Total: <span class="green-text">{{ settings.CURRENCY }} {{ cart.get_total|floatformat:"2" }}</span></h4>
+<!--                               Total :  <input  class="h6-responsive" name="amount1"  value=" {{ cart.get_total|floatformat:'2'}}" style="height:20px" > <span class="green-text" >{{ settings.CURRENCY }}</span></input>-->
                           </td>
                       </tr>
 
@@ -72,13 +74,11 @@
                         Continue Shopping
                     </a>
                 </div>
-            <div class="col-xs-3 col-md-3">
-
-                <a class=" btn btn-outline-success" href="{% url 'carts:checkout' %}">
-                        CheckOut
-                    </a>
-
-            </div>
+                         <form>
+              <input class="amount" type="number" name="amount"  value="{{ cart.get_total }}">
+                  {% csrf_token %}
+              <input class="btn btn-primary btn-sm" type="submit" name="submit" value="Recharge" formaction="{% url 'carts:checkout' %}" formmethod="post" >
+            </form>
         </div>
     </div>
 </div>

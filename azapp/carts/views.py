@@ -67,7 +67,17 @@ def cart_update(request):
 
 
 def index(request):
-    return render(request, 'carts/checkout.html')
+    if request.method == 'POST':
+
+         amount =request.POST['amount']
+
+    parms={'amount': amount}
+
+
+
+
+
+    return render(request, 'carts/checkout.html',parms)
 
 
 
@@ -75,8 +85,7 @@ def charge(request):
     if request.method == 'POST':
         print('Date', request.POST)
 
-        amount = int(request.POST['amount'])
-
+        amount =int(request.POST['amount'])
         customer = stripe.Customer.create(
             email=request.POST['email'],
             name=request.POST['name'],
@@ -93,11 +102,43 @@ def charge(request):
     return render(request,'carts/success.html')
 
 
+
+
+def charge2(request):
+    if request.method == 'POST':
+        print('Date', request.POST)
+
+        amount =int(request.POST['amount'])
+        customer = stripe.Customer.create(
+            email=request.POST['email'],
+            name=request.POST['name'],
+            source=request.POST['stripeToken']
+            )
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount=amount * 100,
+            currency='usd',
+            description='Product Price'
+            )
+
+    return render(request,'carts/success.html')
+
+
+
 def success(request):
 
     return render(request, 'carts/success.html')
 
+def Charge_checkout(request):
 
+    amount = int(request.POST['amount'])
+    # if request.method == 'POST':
+
+    parms = {'amount': amount}
+
+
+    return render(request, 'carts/checkout2.html', parms)
 
 
 

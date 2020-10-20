@@ -144,7 +144,7 @@ input[type=submit] {
 <br>
 
 <div class="container ">
-    <form class="form" action="{% url 'carts:charge2' %}" method="post" id="payment-form">
+    <form class="form" action="{% url 'carts:charge' %}" method="post" id="payment-form">
   {% csrf_token %}
 
     <div class="form-row">

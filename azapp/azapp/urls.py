@@ -18,10 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.views.defaults import page_not_found
+
 from . import views
 
 urlpatterns = [
     path('super-admin/', admin.site.urls),
+
+    path('accounts/email/', page_not_found, kwargs={"exception": Exception("Page not Found")}, name="account_email"),
+    path('accounts/', include('allauth.urls')),
     path('accounts/login/', auth_views.LoginView.as_view()),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
@@ -33,6 +38,7 @@ urlpatterns = [
     path('cart/', include('apps.cart.urls')),
     path('carts/',include('carts.urls')),
     path('switch2voip/',include('switch2voip.urls')),
+    path('profile/',include('users.urls')),
 
 
 

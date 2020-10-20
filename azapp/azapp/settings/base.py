@@ -26,11 +26,30 @@ SECRET_KEY = 'z5+f78l*pe^%tb!+e-62#h=wjc0n#f1h#s4!4y%smua2pz!zxx'
 
 # Application definition
 
+
+
+ALLOWED_HOSTS = ['*']
+
+
+BRAND_NAME = 'Switch2VOIP'
+CURRENCY = '$'
+
+SETTINGS_EXPORT = [
+    'BRAND_NAME',
+
+    'CURRENCY',
+]
+
+
+
+
 DJANGO_APPS = [
     'switch2voip.apps.Switch2VoipConfig',
     'carts.apps.CartsConfig',
     'checkout.apps.CheckoutConfig',
     # 'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
+
 
 
     'django.contrib.admin',
@@ -45,6 +64,7 @@ DJANGO_APPS = [
 
     'allauth',
     'allauth.account',
+
 
 
 
@@ -66,6 +86,7 @@ THIRD_PARTY_APPS = [
     'ckeditor_uploader',
     'nested_inline',
     # 'stripe',
+
 
 
 ]
@@ -94,9 +115,57 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'azapp.urls'
+
 # AUTH_USER_MODEL = 'users.CustomUser'
 #
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+SITE_ID = 2
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+# ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = True
+LOGIN_REDIRECT_URL = 'users:user_profile'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'users:login_signup'
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION = False
+
+
+
+
+
+
 
 
 TEMPLATES = [
@@ -110,12 +179,25 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
+                'switch2voip.context_processors.categories',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'azapp.wsgi.application'
+
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Password validation
